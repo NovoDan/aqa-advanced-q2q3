@@ -1,0 +1,23 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+.settings
+*.iml
+/.idea/
+/.allure
+target/
+
+# Package Files #
+*.jar
+*.war
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs
+hs_err_pid*
+
+
