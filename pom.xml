@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.epam.novostroinyi</groupId>
+    <artifactId>aqa-advanced-q2q3</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <lombok.version>1.18.26</lombok.version>
+        <testng.version>7.7.1</testng.version>
+        <assertj.version>3.24.2</assertj.version>
+        <log4j.version>2.20.0</log4j.version>
+        <selenide.version>6.13.0</selenide.version>
+        <allure.version>2.21.0</allure.version>
+    </properties>
+
+    <dependencies>
+        <!-- Testing core -->
+        <dependency>
+            <artifactId>testng</artifactId>
+            <groupId>org.testng</groupId>
+            <scope>test</scope>
+            <version>${testng.version}</version>
+        </dependency>
+        <dependency>
+            <artifactId>assertj-core</artifactId>
+            <groupId>org.assertj</groupId>
+            <version>${assertj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>${selenide.version}</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>lombok</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>log4j-core</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- Reporting -->
+        <dependency>
+            <artifactId>allure-testng</artifactId>
+            <groupId>io.qameta.allure</groupId>
+            <version>${allure.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>allure-maven</artifactId>
+                    <configuration>
+                        <reportVersion>2.6.0</reportVersion>
+                    </configuration>
+                    <groupId>io.qameta.allure</groupId>
+                    <version>2.10.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>10</source>
+                    <target>10</target>
+                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
