@@ -27,7 +27,6 @@
         <dependency>
             <artifactId>testng</artifactId>
             <groupId>org.testng</groupId>
-            <scope>test</scope>
             <version>${testng.version}</version>
         </dependency>
         <dependency>
