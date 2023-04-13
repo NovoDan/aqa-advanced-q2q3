@@ -19,10 +19,11 @@
         <log4j.version>2.20.0</log4j.version>
         <selenide.version>6.13.0</selenide.version>
         <allure.version>2.21.0</allure.version>
+        <owner.version>1.0.12</owner.version>
     </properties>
 
     <dependencies>
-        <!-- Testing core -->
+        <!-- Core -->
         <dependency>
             <artifactId>testng</artifactId>
             <groupId>org.testng</groupId>
@@ -51,6 +52,13 @@
             <groupId>org.apache.logging.log4j</groupId>
             <version>${log4j.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.aeonbits.owner</groupId>
+            <artifactId>owner</artifactId>
+            <version>${owner.version}</version>
+        </dependency>
+
 
         <!-- Reporting -->
         <dependency>
