@@ -9,6 +9,6 @@ import org.aeonbits.owner.Config.Sources;
 @Sources({"file:src/main/resources/secret.properties", "system:env"})
 public interface Secret extends Config {
 
-  @Key("rp_password")
+  @Key("rpPassword")
   String reportPortalPassword();
 }

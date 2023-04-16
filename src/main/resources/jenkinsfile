@@ -1,0 +1,54 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Setup parameters') {
+      steps {
+        script {
+          properties([
+            parameters([
+              string(
+              name: 'branch_name'
+              defaultValue: 'main'
+              description: 'Name of the target branch'
+              )
+              choice(
+                choices: ['Chrome', 'Opera', 'Edge', 'Firefox'],
+                name: 'Browser'
+                description: 'Browser name to run UI tests'
+              ),
+              booleanParam(
+                defaultValue: true,
+                name: 'make_screenshot'
+              ),
+              booleanParam(
+                defaultValue: true,
+                description: 'Browser mode',
+                name: 'headless'
+              ),
+              string(
+                defaultValue: 'smoke',
+                name: 'suite',
+                trim: true
+              )
+            ])
+          ])
+        }
+      }
+    }
+    stage('Build') {
+      steps {
+      echo 'Build is started'
+        build 'aqa-advanced-taf-build-dn'
+      }
+    }
+    stage("Test") {
+      steps {
+      echo 'Running tests'
+      withCredentials([gitUsernamePassword(credentialsId: 'rp_credentials', gitToolName: 'Default', passwordVariable: 'PASS')]) {
+        sh 'mvn test -Dsuite=${suite} -Dbrowser={browser} -DmakeScreenshot=${make_screenshot} -Dheadless=${headless} -DrpPassword=${PASS}'
+      }
+      }
+    }
+  }
+}

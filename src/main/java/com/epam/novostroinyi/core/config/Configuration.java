@@ -12,13 +12,19 @@ public interface Configuration extends Config {
   @Key("rp.endpoint")
   String baseUrl();
 
-  @Key("browser.type")
+  @Key("browser")
   String browserType();
 
-  @Key("browser.headless")
+  @Key("headless")
   @DefaultValue("false")
   boolean headlessMode();
 
   @Key("rp.username")
   String reportPortalUser();
+
+  @Key("suite")
+  String suite();
+
+  @Key("makeScreenshot")
+  boolean makeScreenshot();
 }
