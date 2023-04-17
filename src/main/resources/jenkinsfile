@@ -8,27 +8,27 @@ pipeline {
           properties([
             parameters([
               string(
-              name: 'branch_name'
-              defaultValue: 'main'
-              description: 'Name of the target branch'
-              )
+              name: 'BRANCH_NAME',
+              defaultValue: 'main',
+              description: 'Name of the target branch',
+              ),
               choice(
                 choices: ['Chrome', 'Opera', 'Edge', 'Firefox'],
-                name: 'Browser'
-                description: 'Browser name to run UI tests'
+                name: 'BROWSER',
+                description: 'Browser name to run UI tests',
               ),
               booleanParam(
                 defaultValue: true,
-                name: 'make_screenshot'
+                name: 'MAKE_SCREENSHOT'
               ),
               booleanParam(
                 defaultValue: true,
                 description: 'Browser mode',
-                name: 'headless'
+                name: 'HEADLESS'
               ),
               string(
                 defaultValue: 'smoke',
-                name: 'suite',
+                name: 'SUITE',
                 trim: true
               )
             ])
@@ -38,16 +38,16 @@ pipeline {
     }
     stage('Build') {
       steps {
-      echo 'Build is started'
-        build 'aqa-advanced-taf-build-dn'
+        echo 'Build is started'
+        sh "mvn clean install"
       }
     }
     stage("Test") {
       steps {
-      echo 'Running tests'
-      withCredentials([gitUsernamePassword(credentialsId: 'rp_credentials', gitToolName: 'Default', passwordVariable: 'PASS')]) {
-        sh 'mvn test -Dsuite=${suite} -Dbrowser={browser} -DmakeScreenshot=${make_screenshot} -Dheadless=${headless} -DrpPassword=${PASS}'
-      }
+        echo 'Running tests'
+        withCredentials([usernamePassword(credentialsId: 'ba5e7d45-f5cf-4762-a079-01d67ae3a82b', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+          sh "mvn test -Dsuite=${params.SUITE} -Dbrowser=${params.BROWSER} -DmakeScreenshot=${params.MAKE_SCREENSHOT} -Dheadless=${params.HEADLESS} -DrpPassword=${params.PASS}"
+        }
       }
     }
   }
