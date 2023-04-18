@@ -1,9 +1,11 @@
 package com.epam.novostroinyi.step;
 
-import com.epam.novostroinyi.core.logger.Log4jLogger;
+import com.epam.novostroinyi.core.config.ConfigUtils;
 import com.epam.novostroinyi.core.logger.LogWrapper;
+import com.epam.novostroinyi.core.reporter.Reporter;
 
 public abstract class BaseSteps {
 
-  protected LogWrapper logger = new Log4jLogger();
+  private LogWrapper logger = ConfigUtils.getLogger();
+  private Reporter reporter = ConfigUtils.getReporter();
 }
