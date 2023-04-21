@@ -1,19 +1,18 @@
 package com.epam.novostroinyi.core.logger;
 
-import com.epam.novostroinyi.core.reporter.AllureReporter;
 import com.epam.novostroinyi.core.reporter.Reporter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Log4jLogger implements LogWrapper {
+public class Log4jLogger implements ILogger {
 
   private final Reporter reporter;
 
   private final Logger logger;
 
-  public Log4jLogger() {
+  public Log4jLogger(Reporter reporter) {
     this.logger = LogManager.getLogger();
-    this.reporter = AllureReporter.getInstance();
+    this.reporter = reporter;
   }
 
   @Override

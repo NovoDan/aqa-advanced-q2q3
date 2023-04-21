@@ -1,6 +1,6 @@
 package com.epam.novostroinyi.core.logger;
 
-public interface LogWrapper {
+public interface ILogger {
 
   void info(String message);
 

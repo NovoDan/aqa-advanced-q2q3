@@ -6,7 +6,7 @@ import org.aeonbits.owner.Config.LoadType;
 import org.aeonbits.owner.Config.Sources;
 
 @LoadPolicy(LoadType.MERGE)
-@Sources({"system:env", "file:src/main/resources/secret.properties"})
+@Sources({"system:env", "file:src/main/resources/configuration.properties"})
 public interface Common extends Config {
 
   @Key("rp.endpoint")
