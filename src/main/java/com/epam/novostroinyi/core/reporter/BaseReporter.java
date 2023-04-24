@@ -1,15 +1,16 @@
 package com.epam.novostroinyi.core.reporter;
 
-import com.epam.novostroinyi.core.logger.Log4jLogger;
-import com.epam.novostroinyi.core.logger.ILogger;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class BaseReporter {
 
   private static Reporter reporter;
 
-  public static synchronized <T> Reporter getInstance(Class<T> clazz) {
+  public static synchronized <T extends Reporter> Reporter getInstance(Class<T> clazz) {
     if(Objects.isNull(reporter)) {
       try {
         reporter = (Reporter) clazz.getConstructors()[0].newInstance();
