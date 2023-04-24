@@ -5,7 +5,7 @@ import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class BaseReporter {
 
   private static Reporter reporter;
