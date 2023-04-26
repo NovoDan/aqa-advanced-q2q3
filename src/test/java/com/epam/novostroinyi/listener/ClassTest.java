@@ -4,6 +4,7 @@ public class ClassTest {
 
   //some useless code
   String aNDMORE;
+  private static String dgt="";;;;
 
   public static void error() throws InterruptedException {
     boolean booleanVariable;
