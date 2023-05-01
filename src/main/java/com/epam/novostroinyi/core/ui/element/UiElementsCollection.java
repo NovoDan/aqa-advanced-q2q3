@@ -10,10 +10,16 @@ import org.openqa.selenium.WebElement;
 
 public class UiElementsCollection extends AbstractList<WebElement> {
 
-  List<WebElement> elementList;
+  private final By locator;
+  private List<WebElement> elementList;
 
   private UiElementsCollection(By locator) {
+    this.locator = locator;
     elementList = WebDriverRunner.getWebDriver().findElements(locator);
+  }
+
+  public void refreshElement() {
+    elementList = new UiElementsCollection(locator);
   }
 
   @Override
@@ -46,7 +52,7 @@ public class UiElementsCollection extends AbstractList<WebElement> {
     }
 
     public static UiElementsCollection xpath(String xpathLocator) {
-      return new UiElementsCollection(By.name(xpathLocator));
+      return new UiElementsCollection(By.xpath(xpathLocator));
     }
   }
 }

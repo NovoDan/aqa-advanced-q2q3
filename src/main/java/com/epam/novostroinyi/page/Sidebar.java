@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class Sidebar implements BasePage {
 
-  private final UiElement launches =
-      GetElementBy.xpath("//div[contains(@class, 'sidebar-nav-btn')]/a[contains(@href, 'launches')]");
+  private final UiElement launchesTab =
+      GetElementBy.xpath(
+          "//div[contains(@class, 'sidebar-nav-btn')]/a[contains(@href, 'launches')]");
 }

@@ -1,6 +1,7 @@
 package com.epam.novostroinyi.core.ui.element;
 
-import static com.codeborne.selenide.Selenide.$;
+
+import static com.codeborne.selenide.Selenide.element;
 
 import java.util.List;
 import lombok.AccessLevel;
@@ -18,7 +19,7 @@ public class UiElement implements WebElement {
   private final WebElement element;
 
   private UiElement(By selector) {
-    element = $(selector);
+    element = element(selector);
   }
 
   @Override
@@ -126,7 +127,7 @@ public class UiElement implements WebElement {
     }
 
     public static UiElement xpath(String xpathLocator) {
-      return new UiElement(By.name(xpathLocator));
+      return new UiElement(By.xpath(xpathLocator));
     }
   }
 }

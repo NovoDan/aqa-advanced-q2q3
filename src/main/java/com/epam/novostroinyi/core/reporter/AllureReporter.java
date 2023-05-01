@@ -2,12 +2,8 @@ package com.epam.novostroinyi.core.reporter;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AllureReporter extends BaseReporter implements Reporter {
-
 
   public static Reporter getInstance() {
     return getInstance(AllureReporter.class);

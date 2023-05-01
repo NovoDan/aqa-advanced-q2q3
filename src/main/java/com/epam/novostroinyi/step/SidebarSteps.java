@@ -9,7 +9,7 @@ public class SidebarSteps extends BaseUiSteps<Sidebar> {
   }
 
   public LaunchesSteps openLaunches() {
-    getPage().getLaunches().click();
+    getPage().getLaunchesTab().click();
     return new LaunchesSteps();
   }
 }
