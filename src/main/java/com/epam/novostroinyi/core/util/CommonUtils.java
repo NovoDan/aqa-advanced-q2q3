@@ -1,5 +1,6 @@
 package com.epam.novostroinyi.core.util;
 
+import com.epam.novostroinyi.core.exception.TestErrorException;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import java.io.FileReader;
@@ -11,12 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CommonUtils {
 
-  public static List<String[]> readCsvFile(String filePath) {
+  public static List<String[]> readCsvFile(String filePath, int linesToSkip) {
     try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
-      reader.skip(1);
+      reader.skip(linesToSkip);
       return reader.readAll();
     } catch (IOException | CsvException e) {
-      throw new RuntimeException(e);
+      throw new TestErrorException(e.getMessage());
     }
   }
 }

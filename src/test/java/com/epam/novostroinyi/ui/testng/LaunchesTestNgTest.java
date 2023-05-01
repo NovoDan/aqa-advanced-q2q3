@@ -13,7 +13,7 @@ public class LaunchesTestNgTest extends BaseTestNgTest {
   @DataProvider(name = "getTestData", parallel = true)
   private Object[][] getTestData() {
     String filePath = "src/test/resources/data/ui/ItemsFilterData.csv";
-    List<String[]> dataWithoutHeader = readCsvFile(filePath);
+    List<String[]> dataWithoutHeader = readCsvFile(filePath, 1);
     return dataWithoutHeader.toArray(new String[][] {});
   }
 
