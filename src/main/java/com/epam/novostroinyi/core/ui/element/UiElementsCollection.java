@@ -4,12 +4,14 @@ import com.codeborne.selenide.WebDriverRunner;
 import java.util.AbstractList;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class UiElementsCollection extends AbstractList<WebElement> {
 
+  @Getter
   private final By locator;
   private List<WebElement> elementList;
 

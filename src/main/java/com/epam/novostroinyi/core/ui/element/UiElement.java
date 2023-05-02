@@ -5,6 +5,7 @@ import static com.codeborne.selenide.Selenide.element;
 
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -18,8 +19,12 @@ public class UiElement implements WebElement {
 
   private final WebElement element;
 
-  private UiElement(By selector) {
-    element = element(selector);
+  @Getter
+  private final By locator;
+
+  private UiElement(By locator) {
+    this.locator = locator;
+    element = element(locator);
   }
 
   @Override

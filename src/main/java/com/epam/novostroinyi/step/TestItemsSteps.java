@@ -1,7 +1,5 @@
 package com.epam.novostroinyi.step;
 
-import static io.qameta.allure.Allure.step;
-
 import com.epam.novostroinyi.core.ui.element.UiElementsCollection;
 import com.epam.novostroinyi.page.TestItemsPage;
 import java.util.concurrent.TimeUnit;
@@ -16,7 +14,7 @@ public class TestItemsSteps extends BaseUiSteps<TestItemsPage> {
 
   @SneakyThrows
   public TestItemsSteps applyFilter(String searchPhrase) {
-    step(String.format("Test items filtering by value '%s'", searchPhrase));
+    getReporter().step(String.format("Test items filtering by value '%s'", searchPhrase));
     getPage().getSearch().sendKeys(searchPhrase, Keys.ENTER);
     getPage().getSearch().sendKeys(Keys.ENTER);
     TimeUnit.SECONDS.sleep(2);
