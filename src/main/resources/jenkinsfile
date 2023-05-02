@@ -1,0 +1,54 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Setup parameters') {
+      steps {
+        script {
+          properties([
+            parameters([
+              string(
+              name: 'BRANCH_NAME',
+              defaultValue: 'main',
+              description: 'Name of the target branch',
+              ),
+              choice(
+                choices: ['Chrome', 'Opera', 'Edge', 'Firefox'],
+                name: 'BROWSER',
+                description: 'Browser name to run UI tests',
+              ),
+              booleanParam(
+                defaultValue: true,
+                name: 'MAKE_SCREENSHOT'
+              ),
+              booleanParam(
+                defaultValue: true,
+                description: 'Browser mode',
+                name: 'HEADLESS'
+              ),
+              string(
+                defaultValue: 'smoke',
+                name: 'SUITE',
+                trim: true
+              )
+            ])
+          ])
+        }
+      }
+    }
+    stage('Build') {
+      steps {
+        echo 'Build is started'
+        sh "mvn clean install"
+      }
+    }
+    stage("Test") {
+      steps {
+        echo 'Running tests'
+        withCredentials([usernamePassword(credentialsId: 'ba5e7d45-f5cf-4762-a079-01d67ae3a82b', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+          sh "mvn test -Dsuite=${params.SUITE} -Dbrowser=${params.BROWSER} -DmakeScreenshot=${params.MAKE_SCREENSHOT} -Dheadless=${params.HEADLESS} -DrpPassword=${params.PASS}"
+        }
+      }
+    }
+  }
+}
