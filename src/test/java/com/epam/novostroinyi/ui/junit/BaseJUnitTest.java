@@ -1,10 +1,10 @@
 package com.epam.novostroinyi.ui.junit;
 
-import static com.codeborne.selenide.Selenide.open;
 import static com.epam.novostroinyi.core.config.ConfigUtils.setBrowser;
+import static com.epam.novostroinyi.core.util.WebDriverUtils.openUrl;
 
-import com.codeborne.selenide.WebDriverRunner;
 import com.epam.novostroinyi.core.config.Property;
+import com.epam.novostroinyi.core.util.WebDriverUtils;
 import com.epam.novostroinyi.step.LoginPageSteps;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,13 +19,13 @@ public class BaseJUnitTest {
 
   @BeforeEach
   public void login() {
-    open(Property.COMMON_PROPERTY.baseUrl());
+    openUrl(Property.COMMON_PROPERTY.baseUrl());
     new LoginPageSteps().logIntoReportPortal().openLaunches();
   }
 
   @AfterEach
   public void tearDown() {
-    WebDriverRunner.closeWebDriver();
+    WebDriverUtils.closeWebDriver();
   }
 
 }

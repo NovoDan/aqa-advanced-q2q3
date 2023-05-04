@@ -1,12 +1,14 @@
 package com.epam.novostroinyi.ui.testng;
 
-import static com.epam.novostroinyi.core.util.CommonUtils.convertCsvListOfArraysToMaps;
-import static com.epam.novostroinyi.core.util.CommonUtils.readCsvFile;
+import static com.epam.novostroinyi.core.util.FileUtils.convertCsvListOfArraysToMaps;
+import static com.epam.novostroinyi.core.util.FileUtils.readCsvFile;
 import static org.testng.AssertJUnit.assertEquals;
 
+import com.epam.novostroinyi.core.constant.TestStatus;
 import com.epam.novostroinyi.step.LaunchesSteps;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.EnumUtils;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -47,9 +49,9 @@ public class LaunchesTestNgTest extends BaseTestNgTest {
 
     SoftAssertions softAssert = new SoftAssertions();
 
-    launchStatistics.keySet().forEach(
-        key -> softAssert.assertThat(launchStatistics.get(key))
-            .isEqualTo(launchExpectedData.get(key)));
+    EnumUtils.getEnumList(TestStatus.class)
+        .forEach(status -> softAssert.assertThat(launchStatistics.get(status.getStatus()))
+            .isEqualTo(launchExpectedData.get(status.getStatus())));
 
     softAssert.assertAll();
   }

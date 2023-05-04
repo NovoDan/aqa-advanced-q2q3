@@ -1,6 +1,6 @@
 package com.epam.novostroinyi.ui.junit;
 
-import static com.epam.novostroinyi.core.util.CommonUtils.convertCsvListOfArraysToMaps;
+import static com.epam.novostroinyi.core.util.FileUtils.convertCsvListOfArraysToMaps;
 import static org.testng.AssertJUnit.assertEquals;
 
 import com.epam.novostroinyi.step.LaunchesSteps;

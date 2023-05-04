@@ -12,7 +12,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CommonUtils {
+public class FileUtils {
 
   public static List<String[]> readCsvFile(String filePath, int linesToSkip) {
     try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
