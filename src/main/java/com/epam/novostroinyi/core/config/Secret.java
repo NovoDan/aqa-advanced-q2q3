@@ -11,4 +11,7 @@ public interface Secret extends Config {
 
   @Key("rpPassword")
   String reportPortalPassword();
+
+  @Key("rpToken")
+  String reportPortalToken();
 }
