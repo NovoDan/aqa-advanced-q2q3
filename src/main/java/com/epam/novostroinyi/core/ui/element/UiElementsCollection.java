@@ -1,5 +1,7 @@
 package com.epam.novostroinyi.core.ui.element;
 
+import static com.epam.novostroinyi.core.util.WebDriverUtils.executeJs;
+
 import com.codeborne.selenide.WebDriverRunner;
 import java.util.AbstractList;
 import java.util.List;
@@ -32,6 +34,10 @@ public class UiElementsCollection extends AbstractList<WebElement> {
   @Override
   public int size() {
     return elementList.size();
+  }
+
+  public void scrollTo(int id) {
+    executeJs("arguments[0].scrollIntoView(true);", elementList.get(id));
   }
 
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
