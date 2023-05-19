@@ -1,4 +1,4 @@
-package com.epam.novostroinyi.step;
+package com.epam.novostroinyi.ui.step;
 
 import com.epam.novostroinyi.core.config.ConfigUtils;
 import com.epam.novostroinyi.core.logger.ILogger;
@@ -8,6 +8,6 @@ import lombok.Getter;
 @Getter
 public abstract class BaseSteps {
 
-  private ILogger logger = ConfigUtils.getLogger();
-  private Reporter reporter = ConfigUtils.getReporter();
+  private final ILogger logger = ConfigUtils.getLogger();
+  private final Reporter reporter = ConfigUtils.getReporter();
 }

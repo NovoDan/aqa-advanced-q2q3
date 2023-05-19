@@ -5,7 +5,7 @@ import static com.epam.novostroinyi.core.util.WebDriverUtils.openUrl;
 
 import com.epam.novostroinyi.core.config.Property;
 import com.epam.novostroinyi.core.util.WebDriverUtils;
-import com.epam.novostroinyi.step.LoginPageSteps;
+import com.epam.novostroinyi.ui.step.LoginPageSteps;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

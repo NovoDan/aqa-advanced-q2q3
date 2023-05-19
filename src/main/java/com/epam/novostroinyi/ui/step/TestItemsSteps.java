@@ -1,9 +1,9 @@
-package com.epam.novostroinyi.step;
+package com.epam.novostroinyi.ui.step;
 
 import static com.epam.novostroinyi.core.constant.Key.ENTER;
 
 import com.epam.novostroinyi.core.ui.element.UiElementsCollection;
-import com.epam.novostroinyi.page.TestItemsPage;
+import com.epam.novostroinyi.ui.page.TestItemsPage;
 import java.util.concurrent.TimeUnit;
 import lombok.SneakyThrows;
 

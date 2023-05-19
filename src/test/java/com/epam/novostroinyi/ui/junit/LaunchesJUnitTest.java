@@ -3,7 +3,7 @@ package com.epam.novostroinyi.ui.junit;
 import static com.epam.novostroinyi.core.util.FileUtils.convertCsvListOfArraysToMaps;
 import static org.testng.AssertJUnit.assertEquals;
 
-import com.epam.novostroinyi.step.LaunchesSteps;
+import com.epam.novostroinyi.ui.step.LaunchesSteps;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.assertj.core.api.SoftAssertions;

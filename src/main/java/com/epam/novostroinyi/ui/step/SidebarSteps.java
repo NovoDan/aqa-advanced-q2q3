@@ -1,6 +1,6 @@
-package com.epam.novostroinyi.step;
+package com.epam.novostroinyi.ui.step;
 
-import com.epam.novostroinyi.page.Sidebar;
+import com.epam.novostroinyi.ui.page.Sidebar;
 
 public class SidebarSteps extends BaseUiSteps<Sidebar> {
 
