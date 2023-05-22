@@ -13,9 +13,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.exceptions.base.MockitoException;
-import org.mockito.exceptions.verification.TooFewActualInvocations;
 
 public class OrderServiceTest {
+
+  private int expectedNumberOfInvocations = 1;
 
   @Mock
   DiscountUtility discountUtility;
@@ -40,7 +41,7 @@ public class OrderServiceTest {
     Mockito.when(discountUtility.calculateDiscount(userAccount)).thenReturn(3.0);
 
     Assertions.assertEquals(orderService.getOrderPrice(userAccount), discount, 7.0);
-    verify(discountUtility, times(1)).calculateDiscount(userAccount);
+    verify(discountUtility, times(expectedNumberOfInvocations)).calculateDiscount(userAccount);
     Assertions.assertThrows(MockitoException.class,
         () -> verify(discountUtility).toString());
     Mockito.verifyNoMoreInteractions(discountUtility);
