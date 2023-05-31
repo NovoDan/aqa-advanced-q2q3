@@ -23,6 +23,7 @@
         <allure.plugin.version>2.12.0</allure.plugin.version>
         <owner.version>1.0.12</owner.version>
         <opencsv.version>5.7.1</opencsv.version>
+        <jbehave.version>5.1</jbehave.version>
         <sonar.organization>myorganizationdn</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
@@ -56,6 +57,12 @@
             <artifactId>selenide</artifactId>
             <version>${selenide.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-core</artifactId>
+            <version>${jbehave.version}</version>
+        </dependency>
+
 
         <dependency>
             <artifactId>lombok</artifactId>
