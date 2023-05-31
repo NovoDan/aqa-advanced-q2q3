@@ -2,6 +2,8 @@ package com.epam.novostroinyi.core.util;
 
 import com.google.gson.Gson;
 import com.jayway.jsonpath.JsonPath;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -15,15 +17,23 @@ public class JsonUtils {
     return new Gson().fromJson(json, clazz);
   }
 
-  public static String readJsonSingleValue(String json, String jsonPath) {
-    if(Objects.isNull(json)) {
-      return StringUtils.EMPTY;
-    }
-    return JsonPath.parse(json).read(jsonPath).toString();
+  public static String convertToJson(Object obj) {
+    return new Gson().toJson(obj);
   }
 
-  public static JSONArray readJsonListOfValues(String json, String jsonPath) {
-    if(Objects.isNull(json)) {
+  public static String readJsonSingleValue(String json, String jsonPath) {
+    if (Objects.isNull(json)) {
+      return StringUtils.EMPTY;
+    }
+    var result = JsonPath.parse(json).read(jsonPath);
+    if (result instanceof JSONArray arrayResult) {
+      return arrayResult.isEmpty() ? StringUtils.EMPTY : convertToJson(arrayResult.get(0));
+    }
+    return result.toString();
+  }
+
+  public static List readJsonListOfValues(String json, String jsonPath) {
+    if (Objects.isNull(json)) {
       return new JSONArray();
     }
     return JsonPath.parse(json).read(jsonPath);

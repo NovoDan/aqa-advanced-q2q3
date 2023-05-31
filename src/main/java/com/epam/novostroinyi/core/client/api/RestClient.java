@@ -26,28 +26,28 @@ public class RestClient implements ApiClient {
 
   @Override
   public ApiResponse doPost(String url, Object body) {
-    return (ApiResponse) given()
+    return new RestResponse(given()
         .spec(requestSpecification)
         .body(body)
         .when()
-        .post(url);
+        .post(url));
   }
 
   @Override
   public ApiResponse doPut(String url, Object body) {
-    return (ApiResponse) given()
+    return new RestResponse(given()
         .spec(requestSpecification)
         .body(body)
         .when()
-        .put(url);
+        .put(url));
   }
 
   @Override
   public ApiResponse doDelete(String url, Object body) {
-    return (ApiResponse) given()
+    return new RestResponse(given()
         .spec(requestSpecification)
         .body(body)
         .when()
-        .delete(url);
+        .delete(url));
   }
 }
