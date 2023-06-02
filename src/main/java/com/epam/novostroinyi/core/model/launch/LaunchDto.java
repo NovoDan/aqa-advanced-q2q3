@@ -28,17 +28,24 @@ public class LaunchDto {
   private boolean hasRetries;
   private boolean rerun;
 
-  public class Attribute{
+  @Data
+  public static class Attribute {
+
     private String key;
     private String value;
   }
 
-  public class AutomationBug{
+  @Data
+  public static class AutomationBug {
+
     private int total;
-    private int ab001;
+    @SerializedName(value = "ab001")
+    private int automationBugNumber;
   }
 
-  public class Defects{
+  @Data
+  public static class Defects {
+
     @SerializedName(value = "system_issue")
     private SystemIssue systemIssue;
     @SerializedName(value = "to_investigate")
@@ -47,25 +54,35 @@ public class LaunchDto {
     private AutomationBug automationBug;
   }
 
-  public class Executions{
+  @Data
+  public static class Executions {
+
     private int total;
     private int failed;
     private int passed;
   }
 
-  public class Statistics{
+  @Data
+  public static class Statistics {
+
     private Executions executions;
     private Defects defects;
   }
 
-  public class SystemIssue{
+  @Data
+  public static class SystemIssue {
+
     private int total;
-    private int si001;
+    @SerializedName(value = "si001")
+    private int systemIssueNumber;
   }
 
-  public class ToInvestigate{
+  @Data
+  public static class ToInvestigate {
+
     private int total;
-    private int ti001;
+    @SerializedName(value = "ti001")
+    private int toInvestigateNumber;
   }
 
 }

@@ -25,6 +25,15 @@ public class RestClient implements ApiClient {
   }
 
   @Override
+  public ApiResponse doGet(String url, Map params) {
+    return new RestResponse(given()
+        .queryParams(params)
+        .spec(requestSpecification)
+        .when()
+        .get(url));
+  }
+
+  @Override
   public ApiResponse doPost(String url, Object body) {
     return new RestResponse(given()
         .spec(requestSpecification)

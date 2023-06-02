@@ -7,6 +7,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +21,7 @@ import org.testng.reporters.Files;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FileUtils {
 
-  private static ILogger logger = ConfigUtils.getLogger();
+  private static final ILogger logger = ConfigUtils.getLogger();
 
   public static List<String[]> readCsvFile(String filePath, int linesToSkip) {
     try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
@@ -50,7 +51,7 @@ public class FileUtils {
     try (InputStream stream = new FileInputStream(file)) {
       return Files.readFile(stream);
     } catch (IOException e) {
-      logger.info("Error occurred while reading file {}", file.getName());
+      logger.error("Error occurred while reading file {}", file.getName());
       throw new FileProcessingException(e.getMessage());
     }
   }
@@ -58,5 +59,20 @@ public class FileUtils {
   public static String getFileAsStringByPath(String filePath) {
     File bodyForClaimCreation = new File(filePath);
     return getContentFromFile(bodyForClaimCreation);
+  }
+
+  public static void saveByteArrayToFile(byte[] fileContent, String path, String fileName) {
+    File fileDir = new File(path);
+    File file = new File(path, fileName);
+    if (fileDir.exists() || fileDir.mkdir()) {
+      try (FileOutputStream outputStream = new FileOutputStream(file)) {
+        outputStream.write(fileContent);
+      } catch (IOException e) {
+        logger.error("Error occurred while writing file to destination {}", file.getName());
+        throw new FileProcessingException(e.getMessage());
+      }
+    } else {
+      throw new FileProcessingException("Could not create directory " + path);
+    }
   }
 }
