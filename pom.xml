@@ -27,6 +27,8 @@
         <sonar.organization>myorganizationdn</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <restassured.version>5.3.0</restassured.version>
+        <gson.properties>2.10.1</gson.properties>
+        <jpath.version>2.4.0</jpath.version>
     </properties>
 
     <dependencies>
@@ -105,12 +107,12 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.10.1</version>
+            <version>${gson.properties}</version>
         </dependency>
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
-            <version>2.4.0</version>
+            <version>${jpath.version}</version>
         </dependency>
 
     </dependencies>
