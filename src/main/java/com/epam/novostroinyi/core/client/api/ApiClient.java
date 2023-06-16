@@ -8,9 +8,9 @@ public interface ApiClient {
 
   public ApiResponse doGet(String url, Map params);
 
-  public ApiResponse doPost(String url, Object body);
+  public <T> ApiResponse doPost(String url, T body);
 
-  public ApiResponse doPut(String url, Object body);
+  public <T> ApiResponse doPut(String url, T body);
 
-  public ApiResponse doDelete(String url, Object body);
+  public <T> ApiResponse doDelete(String url, T body);
 }

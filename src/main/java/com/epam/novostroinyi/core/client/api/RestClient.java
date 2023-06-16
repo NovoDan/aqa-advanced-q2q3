@@ -34,7 +34,7 @@ public class RestClient implements ApiClient {
   }
 
   @Override
-  public ApiResponse doPost(String url, Object body) {
+  public <T> ApiResponse doPost(String url, T body) {
     return new RestResponse(given()
         .spec(requestSpecification)
         .body(body)
@@ -43,7 +43,7 @@ public class RestClient implements ApiClient {
   }
 
   @Override
-  public ApiResponse doPut(String url, Object body) {
+  public <T> ApiResponse doPut(String url, T body) {
     return new RestResponse(given()
         .spec(requestSpecification)
         .body(body)
@@ -52,7 +52,7 @@ public class RestClient implements ApiClient {
   }
 
   @Override
-  public ApiResponse doDelete(String url, Object body) {
+  public <T> ApiResponse doDelete(String url, T body) {
     return new RestResponse(given()
         .spec(requestSpecification)
         .body(body)
