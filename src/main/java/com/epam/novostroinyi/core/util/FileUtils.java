@@ -75,4 +75,12 @@ public class FileUtils {
       throw new FileProcessingException("Could not create directory " + path);
     }
   }
+
+  public static File deserializeFile(String path) {
+    File file = new File(path);
+    if (!file.exists() || !file.canRead()) {
+      throw new FileProcessingException("Can not read the file bu path '%s'".formatted(path));
+    }
+    return file;
+  }
 }

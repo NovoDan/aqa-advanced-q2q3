@@ -13,4 +13,10 @@ public class SidebarSteps extends BaseUiSteps<Sidebar> {
     getPage().getLaunchesTab().click();
     return new LaunchesSteps();
   }
+
+  public DashboardsSteps openDasboards() {
+    getReporter().step("Switching to Dashboards");
+    getPage().getDashboardsTab().click();
+    return new DashboardsSteps();
+  }
 }

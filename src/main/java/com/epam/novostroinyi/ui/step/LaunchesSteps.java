@@ -1,6 +1,5 @@
 package com.epam.novostroinyi.ui.step;
 
-import static com.codeborne.selenide.Selenide.actions;
 import static com.epam.novostroinyi.core.constant.TestStatus.FAILED;
 import static com.epam.novostroinyi.core.constant.TestStatus.PASSED;
 import static com.epam.novostroinyi.core.constant.TestStatus.PRODUCT_BUGS;
@@ -9,8 +8,11 @@ import static com.epam.novostroinyi.core.constant.TestStatus.SYSTEM_ISSUE;
 import static com.epam.novostroinyi.core.constant.TestStatus.TA_BUGS;
 import static com.epam.novostroinyi.core.constant.TestStatus.TOTAL;
 import static com.epam.novostroinyi.core.constant.TestStatus.TO_INVESTIGATE;
+import static com.epam.novostroinyi.core.util.WebDriverUtils.getWebDriver;
 
 import com.epam.novostroinyi.core.ui.element.UiElementsCollection;
+import com.epam.novostroinyi.core.ui.element.WebActions;
+import com.epam.novostroinyi.core.util.WebDriverUtils;
 import com.epam.novostroinyi.ui.page.LaunchesPage;
 import java.util.Map;
 import org.openqa.selenium.WebElement;
@@ -25,12 +27,20 @@ public class LaunchesSteps extends BaseUiSteps<LaunchesPage> {
     return getPage().getLaunchesList();
   }
 
+  public UiElementsCollection getLaunchNumbers() {
+    return getPage().getLaunchNumbers();
+  }
+
   public TestItemsSteps openLaunch(int id) {
     getReporter().step("Opening launch with id: " + id);
     UiElementsCollection launches = getLaunchesList();
     WebElement launchToOpen = launches.get(launches.size() - id);
 
-    actions().scrollToElement(launchToOpen).perform();
+    WebActions actions = new WebActions(getWebDriver());
+    launches.refreshElement();
+    launches.scrollTo(launches.size() - id);
+//    actions.scrollToElement(launchToOpen);
+//    actions.isScrolledIntoView(launchToOpen);
     launchToOpen.click();
 
     return new TestItemsSteps();
@@ -59,5 +69,17 @@ public class LaunchesSteps extends BaseUiSteps<LaunchesPage> {
         TA_BUGS.getStatus(), launchAutomationBugs,
         SYSTEM_ISSUE.getStatus(), launchSystemIssues,
         TO_INVESTIGATE.getStatus(), launchToInvestigateBugs);
+  }
+
+  public LaunchesSteps switchLatestLaunchFilter() {
+    getPage().getAllLatestLaunchesFilter().click();
+    getPage().getAllLatestLaunchesDropdownOptions()
+        .refreshElement()
+        .stream()
+        .filter(option -> option.getText().contains("Latest"))
+        .findFirst()
+        .orElseThrow()
+        .click();
+    return this;
   }
 }

@@ -20,7 +20,7 @@ public class BaseTestNgTest {
   @BeforeMethod
   public void login() {
     openUrl(Property.COMMON_PROPERTY.baseUrl());
-    new LoginPageSteps().logIntoReportPortal().openLaunches();
+    new LoginPageSteps().logIntoReportPortal();
   }
 
   @AfterMethod

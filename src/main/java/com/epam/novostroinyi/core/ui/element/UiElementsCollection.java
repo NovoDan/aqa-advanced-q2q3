@@ -1,8 +1,10 @@
 package com.epam.novostroinyi.core.ui.element;
 
-import static com.epam.novostroinyi.core.util.WebDriverUtils.executeJs;
+import static com.codeborne.selenide.Selenide.actions;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-import com.codeborne.selenide.WebDriverRunner;
+import com.epam.novostroinyi.core.config.ConfigUtils;
+import com.epam.novostroinyi.core.logger.ILogger;
 import java.util.AbstractList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -17,13 +19,17 @@ public class UiElementsCollection extends AbstractList<WebElement> {
   private final By locator;
   private List<WebElement> elementList;
 
+  private ILogger logger = ConfigUtils.getLogger();
+
   private UiElementsCollection(By locator) {
     this.locator = locator;
-    elementList = WebDriverRunner.getWebDriver().findElements(locator);
+    elementList = getWebDriver().findElements(locator);
   }
 
-  public void refreshElement() {
+  public UiElementsCollection refreshElement() {
+    logger.debug("Refreshing element container");
     elementList = new UiElementsCollection(locator);
+    return this;
   }
 
   @Override
@@ -37,7 +43,9 @@ public class UiElementsCollection extends AbstractList<WebElement> {
   }
 
   public void scrollTo(int id) {
-    executeJs("arguments[0].scrollIntoView(true);", elementList.get(id));
+    logger.debug("Scrolling to element with id '{}'", id);
+    actions().scrollToElement(elementList.get(id)).perform();
+//    new WebActions(getWebDriver()).scrollToElement(elementList.get(id));
   }
 
   @NoArgsConstructor(access = AccessLevel.PRIVATE)

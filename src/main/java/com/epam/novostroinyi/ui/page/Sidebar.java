@@ -11,6 +11,10 @@ public class Sidebar extends BasePage {
       GetElementBy.xpath(
           "//div[contains(@class, 'sidebar-nav-btn')]/a[contains(@href, 'launches')]");
 
+  private final UiElement dashboardsTab = GetElementBy.xpath(
+      "//div[contains(@class, 'sidebar-nav-btn')]/a[contains(@href, 'dashboard')]"
+  );
+
   public Sidebar() {
     waitForPageLoading(launchesTab.getLocator());
   }

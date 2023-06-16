@@ -1,5 +1,7 @@
 package com.epam.novostroinyi.ui.page;
 
+import com.epam.novostroinyi.core.ui.element.UiElement;
+import com.epam.novostroinyi.core.ui.element.UiElement.GetElementBy;
 import com.epam.novostroinyi.core.ui.element.UiElementsCollection;
 import com.epam.novostroinyi.core.ui.element.UiElementsCollection.GetElementsBy;
 import lombok.Getter;
@@ -22,6 +24,9 @@ public class LaunchesPage extends BasePage {
   private final UiElementsCollection productAutoBugColumn = GetElementsBy.xpath("//div[contains(@class, 'launchSuiteGrid__ab-col')]");
   private final UiElementsCollection productSystemIssueColumn = GetElementsBy.xpath("//div[contains(@class, 'launchSuiteGrid__si-col')]");
   private final UiElementsCollection productToInvestigateColumn = GetElementsBy.xpath("//div[contains(@class, 'launchSuiteGrid__ti-col')]");
+  private final UiElement allLatestLaunchesFilter = GetElementBy.xpath("//div[contains(@class, 'allLatestDropdown__arrow')]");
+  private final UiElementsCollection allLatestLaunchesDropdownOptions = GetElementsBy.xpath("//div[contains(@class, 'allLatestDropdown__option-list')]/div");
+  private final UiElementsCollection launchNumbers = GetElementsBy.xpath("//*[@id=\"app\"]/div/div/div/div[2]/div[1]/div[1]/div[1]/div[2]/div/div[2]/div[2]/div[2]/div[2]/td[2]/div/div[1]/span/a");
 
   public LaunchesPage() {
     waitForPageLoading(launchesList.getLocator());

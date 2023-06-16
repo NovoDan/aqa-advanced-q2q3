@@ -1,5 +1,6 @@
 package com.epam.novostroinyi.core.ui.element;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.element;
 
 import java.util.List;
@@ -59,7 +60,7 @@ public class UiElement {
   }
 
   public String getText() {
-    return element.getText();
+    return $(locator).getText();
   }
 
   public List<WebElement> findElements(By by) {

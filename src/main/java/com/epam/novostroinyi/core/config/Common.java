@@ -30,4 +30,10 @@ public interface Common extends Config {
 
   @Key("rp.project.name")
   String rpProjectName();
+
+  @Key("remote.browser.url")
+  String remoteBrowserUrl();
+
+  @Key("remote")
+  Boolean isRemote();
 }

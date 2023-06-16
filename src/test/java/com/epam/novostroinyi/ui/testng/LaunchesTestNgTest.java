@@ -6,6 +6,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import com.epam.novostroinyi.core.constant.TestStatus;
 import com.epam.novostroinyi.ui.step.LaunchesSteps;
+import com.epam.novostroinyi.ui.step.SidebarSteps;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.EnumUtils;
@@ -34,7 +35,8 @@ public class LaunchesTestNgTest extends BaseTestNgTest {
   public void testItemsFilterTest(String filterPhrase, String expectedItems) {
     int itemId = 3;
     int expectedItemsCount = Integer.parseInt(expectedItems);
-    int actualItemsListSize = new LaunchesSteps()
+    int actualItemsListSize = new SidebarSteps()
+        .openLaunches()
         .openLaunch(itemId)
         .applyFilter(filterPhrase)
         .getTestItems()
@@ -44,7 +46,8 @@ public class LaunchesTestNgTest extends BaseTestNgTest {
 
   @Test(dataProvider = "getLaunchStatistics")
   public void checkLaunchCorrectData(Map<String, String> launchExpectedData) {
-    Map<String, String> launchStatistics = new LaunchesSteps()
+    Map<String, String> launchStatistics = new SidebarSteps()
+        .openLaunches()
         .getLaunchStatistics(Integer.parseInt(launchExpectedData.get("launchId")));
 
     SoftAssertions softAssert = new SoftAssertions();
