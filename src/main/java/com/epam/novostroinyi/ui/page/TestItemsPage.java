@@ -13,6 +13,6 @@ public class TestItemsPage extends BasePage {
   private final UiElement search = GetElementBy.xpath("//input[contains(@class,\"inputConditional\")]");
 
   public TestItemsPage() {
-    waitForPageLoading(items.getLocator());
+    waitForPageLoading(items);
   }
 }

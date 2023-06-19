@@ -16,6 +16,6 @@ public class Sidebar extends BasePage {
   );
 
   public Sidebar() {
-    waitForPageLoading(launchesTab.getLocator());
+    waitForPageLoading(launchesTab);
   }
 }

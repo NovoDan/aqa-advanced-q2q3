@@ -5,7 +5,7 @@ import java.util.function.Function;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class DriverFluentWaiter<T> extends WebDriverWait /*implements Waiter<T>*/ {
+public class DriverFluentWaiter<T> extends WebDriverWait {
 
   public DriverFluentWaiter(WebDriver driver, Duration timeout) {
     super(driver, timeout);

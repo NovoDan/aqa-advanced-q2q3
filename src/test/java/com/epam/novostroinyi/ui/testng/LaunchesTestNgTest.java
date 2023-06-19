@@ -1,5 +1,7 @@
 package com.epam.novostroinyi.ui.testng;
 
+import static com.epam.novostroinyi.core.constant.LaunchesConstants.ITEMS_FILTER_TEST_DATA_PATH;
+import static com.epam.novostroinyi.core.constant.LaunchesConstants.LAUNCH_RESULTS_TEST_DATA_PATH;
 import static com.epam.novostroinyi.core.util.FileUtils.convertCsvListOfArraysToMaps;
 import static com.epam.novostroinyi.core.util.FileUtils.readCsvFile;
 import static org.testng.AssertJUnit.assertEquals;
@@ -18,14 +20,13 @@ public class LaunchesTestNgTest extends BaseTestNgTest {
 
   @DataProvider(name = "getTestItemsData", parallel = true)
   private Object[][] getTestItemsData() {
-    String filePath = "src/test/resources/data/ui/ItemsFilterData.csv";
-    List<String[]> dataWithoutHeader = readCsvFile(filePath, 1);
+    List<String[]> dataWithoutHeader = readCsvFile(ITEMS_FILTER_TEST_DATA_PATH, 1);
     return dataWithoutHeader.toArray(new String[][]{});
   }
 
   @DataProvider(name = "getLaunchStatistics", parallel = true)
   private Object[][] getLaunchStatistics() {
-    return convertCsvListOfArraysToMaps("src/test/resources/data/ui/LaunchResultsData.csv")
+    return convertCsvListOfArraysToMaps(LAUNCH_RESULTS_TEST_DATA_PATH)
         .stream()
         .map(row -> new Object[]{row})
         .toArray(Object[][]::new);

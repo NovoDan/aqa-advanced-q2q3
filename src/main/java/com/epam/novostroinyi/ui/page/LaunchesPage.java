@@ -26,9 +26,12 @@ public class LaunchesPage extends BasePage {
   private final UiElementsCollection productToInvestigateColumn = GetElementsBy.xpath("//div[contains(@class, 'launchSuiteGrid__ti-col')]");
   private final UiElement allLatestLaunchesFilter = GetElementBy.xpath("//div[contains(@class, 'allLatestDropdown__arrow')]");
   private final UiElementsCollection allLatestLaunchesDropdownOptions = GetElementsBy.xpath("//div[contains(@class, 'allLatestDropdown__option-list')]/div");
-  private final UiElementsCollection launchNumbers = GetElementsBy.xpath("//*[@id=\"app\"]/div/div/div/div[2]/div[1]/div[1]/div[1]/div[2]/div/div[2]/div[2]/div[2]/div[2]/td[2]/div/div[1]/span/a");
+  private final UiElementsCollection launchNumbers = GetElementsBy.xpath("//span[contains(@class, 'itemInfo__number')]");
+  private final UiElementsCollection launchesHamburgerMenu = GetElementsBy.xpath("//div[contains(@class, 'hamburger__hamburger-menu-actions')]/parent::div/parent::div");
+  private final UiElement exportInPdfButton = GetElementBy.xpath("//div[contains(@class, 'hamburger__shown')]//span[contains(text(), 'PDF')]/parent::button");
+  private final UiElement exportInXlsButton = GetElementBy.xpath("//div[contains(@class, 'hamburger__shown')]//span[contains(text(), 'HTML')]/parent::button");
 
   public LaunchesPage() {
-    waitForPageLoading(launchesList.getLocator());
+    waitForPageLoading(launchesList);
   }
 }

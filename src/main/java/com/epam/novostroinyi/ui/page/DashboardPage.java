@@ -11,7 +11,7 @@ public class DashboardPage extends BasePage {
       "//div[contains(@class, 'widget-header') and contains(@class, 'draggable')]");
 
   public DashboardPage() {
-    waitForPageLoading(draggableWidgets.getLocator());
+    waitForPageLoading(draggableWidgets);
   }
 }
 

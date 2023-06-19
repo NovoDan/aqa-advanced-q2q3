@@ -1,5 +1,8 @@
 package com.epam.novostroinyi.core.config;
 
+import static com.codeborne.selenide.FileDownloadMode.FOLDER;
+import static com.epam.novostroinyi.core.constant.LaunchesConstants.LAUNCH_EXPORT_DIR_PATH;
+
 import com.codeborne.selenide.Browsers;
 import com.codeborne.selenide.Configuration;
 import com.epam.novostroinyi.core.client.api.ApiClient;
@@ -25,6 +28,9 @@ public class ConfigUtils {
   private static ApiClient client = new RestClient();
 
   public static void setBrowser() {
+    Configuration.proxyEnabled = false;
+    Configuration.fileDownload = FOLDER;
+    Configuration.downloadsFolder = LAUNCH_EXPORT_DIR_PATH;
     switch (Property.COMMON_PROPERTY.browserType()) {
       case "firefox" -> Configuration.browser = Browsers.FIREFOX;
       case "edge" -> Configuration.browser = Browsers.EDGE;

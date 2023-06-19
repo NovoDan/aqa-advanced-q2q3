@@ -1,7 +1,10 @@
 package com.epam.novostroinyi.ui.junit;
 
 import static com.epam.novostroinyi.core.assertion.Assert.assertEquals;
+import static com.epam.novostroinyi.core.assertion.Assert.assertHasSize;
 import static com.epam.novostroinyi.core.util.FileUtils.convertCsvListOfArraysToMaps;
+import static com.epam.novostroinyi.core.util.FileUtils.getContentFromFile;
+import static com.epam.novostroinyi.core.util.FileUtils.getHtmlFieldContentsByText;
 import static com.epam.novostroinyi.core.util.JsonUtils.readJsonListOfValues;
 import static com.epam.novostroinyi.core.util.JsonUtils.readJsonToObject;
 
@@ -10,6 +13,7 @@ import com.epam.novostroinyi.core.constant.StatusCode;
 import com.epam.novostroinyi.core.model.launch.LaunchDto;
 import com.epam.novostroinyi.core.util.JsonUtils;
 import com.epam.novostroinyi.ui.step.SidebarSteps;
+import java.io.File;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,6 +26,11 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 public class LaunchesJUnitTest extends BaseJUnitTest {
+
+  private static Stream<Map<String, String>> getLaunchStatistics() {
+    return convertCsvListOfArraysToMaps(
+        "src/test/resources/data/ui/LaunchResultsData.csv").stream();
+  }
 
   @ParameterizedTest
   @CsvFileSource(resources = "/data/ui/ItemsFilterData.csv", numLinesToSkip = 1)
@@ -66,13 +75,39 @@ public class LaunchesJUnitTest extends BaseJUnitTest {
         .max(Comparator.comparing(LaunchDto::getEndTime))
         .orElseThrow();
 
-    var res = new SidebarSteps().openLaunches().switchLatestLaunchFilter().getLaunchNumbers().get(0).getText();
+    String actualLatestLaunchNumber = new SidebarSteps().openLaunches()
+        .switchLatestLaunchFilter()
+        .getLaunchNumbers()
+        .get(0)
+        .getText();
 
-    System.out.println(res);
-
+    assertEquals(actualLatestLaunchNumber, "#" + latestLaunch.getNumber());
   }
 
-  private static Stream<Map<String, String>> getLaunchStatistics() {
-    return convertCsvListOfArraysToMaps("src/test/resources/data/ui/LaunchResultsData.csv").stream();
+  @Test
+  public void exportLaunchTest() {
+    LaunchesApiSteps steps = new LaunchesApiSteps();
+    String launchListResponse = steps.getLaunchesList()
+        .verifyStatusCode(StatusCode.OK)
+        .getResponseBody();
+    List<?> jsonLaunchesList = readJsonListOfValues(launchListResponse, "$.content");
+    LaunchDto randomLaunch = jsonLaunchesList.stream()
+        .map(LinkedHashMap.class::cast)
+        .map(JsonUtils::convertToJson)
+        .map(launch -> readJsonToObject(launch, LaunchDto.class))
+        .findAny()
+        .orElseThrow();
+
+    File exportedLaunch = new SidebarSteps().openLaunches().exportLaunch(randomLaunch.getNumber());
+
+    String fileContent = getContentFromFile(exportedLaunch);
+
+    List<String> htmlTextContent = getHtmlFieldContentsByText(fileContent, "span")
+        .stream()
+        .filter(content -> content.contains(randomLaunch.getName()))
+        .toList();
+
+    assertHasSize(htmlTextContent, 1);
   }
+
 }

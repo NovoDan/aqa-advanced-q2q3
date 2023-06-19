@@ -10,7 +10,7 @@ public class DashboardsPage extends BasePage {
   private final UiElementsCollection dashboardTable = GetElementsBy.xpath("//a[contains(@class, 'dashboardTable')]");
 
   public DashboardsPage() {
-    waitForPageLoading(dashboardTable.getLocator());
+    waitForPageLoading(dashboardTable);
   }
 
 }

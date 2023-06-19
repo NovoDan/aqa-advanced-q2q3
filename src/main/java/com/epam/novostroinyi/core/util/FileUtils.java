@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.TextNode;
 import org.testng.reporters.Files;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -82,5 +85,10 @@ public class FileUtils {
       throw new FileProcessingException("Can not read the file bu path '%s'".formatted(path));
     }
     return file;
+  }
+
+  public static List<String> getHtmlFieldContentsByText(String html, String tag) {
+    Document document = Jsoup.parse(html);
+    return document.getElementsByTag(tag).textNodes().stream().map(TextNode::text).toList();
   }
 }

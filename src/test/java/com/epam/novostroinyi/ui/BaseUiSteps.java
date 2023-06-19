@@ -10,5 +10,5 @@ public interface BaseUiSteps {
 
   void login();
 
-  void tearDown();
+   void tearDown();
 }
