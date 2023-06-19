@@ -57,8 +57,8 @@ public class FileUtils {
   }
 
   public static String getFileAsStringByPath(String filePath) {
-    File bodyForClaimCreation = new File(filePath);
-    return getContentFromFile(bodyForClaimCreation);
+    File file = new File(filePath);
+    return getContentFromFile(file);
   }
 
   public static void saveByteArrayToFile(byte[] fileContent, String path, String fileName) {

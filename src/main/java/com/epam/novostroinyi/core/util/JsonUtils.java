@@ -17,7 +17,7 @@ public class JsonUtils {
     return new Gson().fromJson(json, clazz);
   }
 
-  public static String convertToJson(Object obj) {
+  public static <T> String convertToJson(T obj) {
     return new Gson().toJson(obj);
   }
 
