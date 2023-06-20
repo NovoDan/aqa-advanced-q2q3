@@ -1,6 +1,6 @@
-package com.epam.novostroinyi.step;
+package com.epam.novostroinyi.ui.step;
 
-import com.epam.novostroinyi.page.Sidebar;
+import com.epam.novostroinyi.ui.page.Sidebar;
 
 public class SidebarSteps extends BaseUiSteps<Sidebar> {
 
@@ -12,5 +12,11 @@ public class SidebarSteps extends BaseUiSteps<Sidebar> {
     getReporter().step("Switching to Launches page");
     getPage().getLaunchesTab().click();
     return new LaunchesSteps();
+  }
+
+  public DashboardsSteps openDasboards() {
+    getReporter().step("Switching to Dashboards");
+    getPage().getDashboardsTab().click();
+    return new DashboardsSteps();
   }
 }

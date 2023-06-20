@@ -2,6 +2,9 @@ package com.epam.novostroinyi.core.reporter;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import java.io.File;
+import java.io.FileInputStream;
+import lombok.SneakyThrows;
 
 public class AllureReporter extends BaseReporter implements Reporter {
 
@@ -12,6 +15,12 @@ public class AllureReporter extends BaseReporter implements Reporter {
   @Override
   public void addAttachment(String name, String content) {
     Allure.addAttachment(name, content);
+  }
+
+  @Override
+  @SneakyThrows
+  public void addFileAttachment(String name, File file) {
+    Allure.addAttachment(name, new FileInputStream(file));
   }
 
   @Override

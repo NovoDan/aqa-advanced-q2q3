@@ -27,4 +27,13 @@ public interface Common extends Config {
 
   @Key("makeScreenshot")
   boolean makeScreenshot();
+
+  @Key("rp.project.name")
+  String rpProjectName();
+
+  @Key("remote.browser.url")
+  String remoteBrowserUrl();
+
+  @Key("remote")
+  Boolean isRemote();
 }

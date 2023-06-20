@@ -1,4 +1,4 @@
-package com.epam.novostroinyi.page;
+package com.epam.novostroinyi.ui.page;
 
 import com.epam.novostroinyi.core.ui.element.UiElement;
 import com.epam.novostroinyi.core.ui.element.UiElement.GetElementBy;
@@ -12,6 +12,6 @@ public class LoginPage extends BasePage {
   private final UiElement submitButton = GetElementBy.xpath("//button[@type='submit']");
 
   public LoginPage() {
-    waitForPageLoading(loginField.getLocator());
+    waitForPageLoading(loginField);
   }
 }

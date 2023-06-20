@@ -1,7 +1,12 @@
 package com.epam.novostroinyi.core.ui.element;
 
+import static com.codeborne.selenide.FileDownloadMode.PROXY;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.element;
 
+import com.codeborne.selenide.Configuration;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -14,7 +19,7 @@ import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
-public class UiElement {
+public class UiElement implements WebElement {
 
   private final WebElement element;
 
@@ -59,7 +64,7 @@ public class UiElement {
   }
 
   public String getText() {
-    return element.getText();
+    return $(locator).getText();
   }
 
   public List<WebElement> findElements(By by) {
@@ -92,6 +97,10 @@ public class UiElement {
 
   public <X> X getScreenshotAs(OutputType<X> target) throws WebDriverException {
     return element.getScreenshotAs(target);
+  }
+
+  public File downloadFile() throws FileNotFoundException {
+    return $(locator).download();
   }
 
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
