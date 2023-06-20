@@ -1,14 +1,25 @@
 package com.epam.novostroinyi.ui.testng;
 
+import static com.epam.novostroinyi.core.assertion.Assert.assertEquals;
+import static com.epam.novostroinyi.core.assertion.Assert.assertHasSize;
 import static com.epam.novostroinyi.core.constant.LaunchesConstants.ITEMS_FILTER_TEST_DATA_PATH;
 import static com.epam.novostroinyi.core.constant.LaunchesConstants.LAUNCH_RESULTS_TEST_DATA_PATH;
 import static com.epam.novostroinyi.core.util.FileUtils.convertCsvListOfArraysToMaps;
+import static com.epam.novostroinyi.core.util.FileUtils.getContentFromFile;
+import static com.epam.novostroinyi.core.util.FileUtils.getHtmlFieldContentsByText;
 import static com.epam.novostroinyi.core.util.FileUtils.readCsvFile;
-import static org.testng.AssertJUnit.assertEquals;
+import static com.epam.novostroinyi.core.util.JsonUtils.readJsonListOfValues;
+import static com.epam.novostroinyi.core.util.JsonUtils.readJsonToObject;
 
+import com.epam.novostroinyi.api.step.LaunchesApiSteps;
+import com.epam.novostroinyi.core.constant.StatusCode;
 import com.epam.novostroinyi.core.constant.TestStatus;
-import com.epam.novostroinyi.ui.step.LaunchesSteps;
+import com.epam.novostroinyi.core.model.launch.LaunchDto;
+import com.epam.novostroinyi.core.util.JsonUtils;
 import com.epam.novostroinyi.ui.step.SidebarSteps;
+import java.io.File;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.EnumUtils;
@@ -58,5 +69,54 @@ public class LaunchesTestNgTest extends BaseTestNgTest {
             .isEqualTo(launchExpectedData.get(status.getStatus())));
 
     softAssert.assertAll();
+  }
+
+  @Test
+  public void getLatestLaunchTest() {
+    LaunchesApiSteps steps = new LaunchesApiSteps();
+    String launchListResponse = steps.getLaunchesList()
+        .verifyStatusCode(StatusCode.OK)
+        .getResponseBody();
+    List<?> jsonLaunchesList = readJsonListOfValues(launchListResponse, "$.content");
+    LaunchDto latestLaunch = jsonLaunchesList.stream()
+        .map(LinkedHashMap.class::cast)
+        .map(JsonUtils::convertToJson)
+        .map(launch -> readJsonToObject(launch, LaunchDto.class))
+        .max(Comparator.comparing(LaunchDto::getEndTime))
+        .orElseThrow();
+
+    String actualLatestLaunchNumber = new SidebarSteps().openLaunches()
+        .switchLatestLaunchFilter()
+        .getLaunchNumbers()
+        .get(0)
+        .getText();
+
+    assertEquals(actualLatestLaunchNumber, "#" + latestLaunch.getNumber());
+  }
+
+  @Test
+  public void exportLaunchTest() {
+    LaunchesApiSteps steps = new LaunchesApiSteps();
+    String launchListResponse = steps.getLaunchesList()
+        .verifyStatusCode(StatusCode.OK)
+        .getResponseBody();
+    List<?> jsonLaunchesList = readJsonListOfValues(launchListResponse, "$.content");
+    LaunchDto randomLaunch = jsonLaunchesList.stream()
+        .map(LinkedHashMap.class::cast)
+        .map(JsonUtils::convertToJson)
+        .map(launch -> readJsonToObject(launch, LaunchDto.class))
+        .findAny()
+        .orElseThrow();
+
+    File exportedLaunch = new SidebarSteps().openLaunches().exportLaunch(randomLaunch.getNumber());
+
+    String fileContent = getContentFromFile(exportedLaunch);
+
+    List<String> htmlTextContent = getHtmlFieldContentsByText(fileContent, "span")
+        .stream()
+        .filter(content -> content.contains(randomLaunch.getName()))
+        .toList();
+
+    assertHasSize(htmlTextContent, 1);
   }
 }

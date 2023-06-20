@@ -2,7 +2,6 @@ package com.epam.novostroinyi.core.util;
 
 import com.google.gson.Gson;
 import com.jayway.jsonpath.JsonPath;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import lombok.AccessLevel;

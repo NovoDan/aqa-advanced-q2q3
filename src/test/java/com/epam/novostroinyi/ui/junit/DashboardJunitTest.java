@@ -12,5 +12,7 @@ public class DashboardJunitTest extends BaseJUnitTest {
 
     new SidebarSteps().openDasboards().openDashboard(0)
         .changeWidgetsOrder(targetWidget, destinationWidget);
+
+    System.out.println("");
   }
 }

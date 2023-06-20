@@ -24,53 +24,10 @@ public class WebActions extends Actions {
     return this;
   }
 
-
   @Override
   public Actions dragAndDrop(WebElement source, WebElement target) {
     logger.debug("Moving element {} to {}", source, target);
-//    return super.dragAndDrop(source, target);
-
-    executeJs("function createEvent(typeOfEvent) {\\n\" +\n"
-        + "                \"    var event = document.createEvent(\\\"CustomEvent\\\");\\n\" +\n"
-        + "                \"    event.initCustomEvent(typeOfEvent, true, true, null);\\n\" +\n"
-        + "                \"    event.dataTransfer = {\\n\" +\n"
-        + "                \"        data: {},\\n\" +\n"
-        + "                \"        setData: function (key, value) {\\n\" +\n"
-        + "                \"            this.data[key] = value;\\n\" +\n"
-        + "                \"        },\\n\" +\n"
-        + "                \"        getData: function (key) {\\n\" +\n"
-        + "                \"            return this.data[key];\\n\" +\n"
-        + "                \"        }\\n\" +\n"
-        + "                \"    };\\n\" +\n"
-        + "                \"    return event;\\n\" +\n"
-        + "                \"}\\n\" +\n"
-        + "                \"\\n\" +\n"
-        + "                \"function dispatchEvent(element, event, transferData) {\\n\" +\n"
-        + "                \"    if (transferData !== undefined) {\\n\" +\n"
-        + "                \"        event.dataTransfer = transferData;\\n\" +\n"
-        + "                \"    }\\n\" +\n"
-        + "                \"    if (element.dispatchEvent) {\\n\" +\n"
-        + "                \"        element.dispatchEvent(event);\\n\" +\n"
-        + "                \"    } else if (element.fireEvent) {\\n\" +\n"
-        + "                \"        element.fireEvent(\\\"on\\\" + event.type, event);\\n\" +\n"
-        + "                \"    }\\n\" +\n"
-        + "                \"}\\n\" +\n"
-        + "                \"\\n\" +\n"
-        + "                \"function simulateHTML5DragAndDrop(element, target) {\\n\" +\n"
-        + "                \"    var dragStartEvent = createEvent('dragstart');\\n\" +\n"
-        + "                \"    dispatchEvent(element, dragStartEvent);\\n\" +\n"
-        + "                \"\\n\" +\n"
-        + "                \"    var dropEvent = createEvent('drop');\\n\" +\n"
-        + "                \"    dispatchEvent(target, dropEvent, dragStartEvent.dataTransfer);\\n\" +\n"
-        + "                \"\\n\" +\n"
-        + "                \"    var dragEndEvent = createEvent('dragend');\\n\" +\n"
-        + "                \"    dispatchEvent(element, dragEndEvent, dropEvent.dataTransfer);\\n\" +\n"
-        + "                \"}\\n\" +\n"
-        + "                \"\\n\" +\n"
-        + "                \"var sourceElement = arguments[0];\\n\" +\n"
-        + "                \"var targetElement = arguments[1];\\n\" +\n"
-        + "                \"simulateHTML5DragAndDrop(sourceElement, targetElement);", source, target);
-    return this;
+    return super.dragAndDrop(source, target);
   }
 
   public boolean isScrolledIntoView(WebElement target) {

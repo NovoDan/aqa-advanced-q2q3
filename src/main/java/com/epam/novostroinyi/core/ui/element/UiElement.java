@@ -99,15 +99,8 @@ public class UiElement implements WebElement {
     return element.getScreenshotAs(target);
   }
 
-  public File downloadFile(String pathToFile) throws FileNotFoundException {
-//    configBeforeDownload(pathToFile);
+  public File downloadFile() throws FileNotFoundException {
     return $(locator).download();
-  }
-
-  private static synchronized void configBeforeDownload(String pathToFile) {
-    Configuration.proxyEnabled = true;
-    Configuration.fileDownload = PROXY;
-    Configuration.downloadsFolder = pathToFile;
   }
 
   @NoArgsConstructor(access = AccessLevel.PRIVATE)

@@ -1,6 +1,5 @@
 package com.epam.novostroinyi.ui.step;
 
-import static com.epam.novostroinyi.core.constant.LaunchesConstants.LAUNCH_EXPORT_DIR_PATH;
 import static com.epam.novostroinyi.core.constant.TestStatus.FAILED;
 import static com.epam.novostroinyi.core.constant.TestStatus.PASSED;
 import static com.epam.novostroinyi.core.constant.TestStatus.PRODUCT_BUGS;
@@ -36,6 +35,7 @@ public class LaunchesSteps extends BaseUiSteps<LaunchesPage> {
   public TestItemsSteps openLaunch(int id) {
     getReporter().step("Opening launch with id: " + id);
     UiElementsCollection launches = getLaunchesList();
+    launches.refreshElement();
     WebElement launchToOpen = launches.get(launches.size() - id);
 
     launches.refreshElement();
@@ -48,6 +48,7 @@ public class LaunchesSteps extends BaseUiSteps<LaunchesPage> {
 
   public Map<String, String> getLaunchStatistics(int launchId) {
     getReporter().step("Getting statistics for launch with id " + launchId);
+    reloadPageElements(new LaunchesPage());
     int launchIndex = getLaunchesList().size() - launchId;
     String launchTotalTests = getPage().getLaunchesTotalColumn().get(launchIndex).getText();
     String launchPassedTests = getPage().getLaunchesPassedColumn().get(launchIndex).getText();
@@ -87,6 +88,7 @@ public class LaunchesSteps extends BaseUiSteps<LaunchesPage> {
   public LaunchesSteps openLaunchHamburgerMenu(int launchNumber) {
     int launchToSelectNumber = getLaunchesList().size() - launchNumber;
     UiElementsCollection launchesMenus = getPage().getLaunchesHamburgerMenu();
+    launchesMenus.refreshElement();
     WebElement launchMenuToOpen = launchesMenus.get(launchToSelectNumber);
     getLaunchesList().scrollTo(launchToSelectNumber);
     WebDriverUtils.getWaiter().clickable(launchMenuToOpen);
@@ -97,7 +99,7 @@ public class LaunchesSteps extends BaseUiSteps<LaunchesPage> {
   public File exportLaunch(int launchNumber) {
     openLaunchHamburgerMenu(launchNumber);
     try {
-      return getPage().getExportInXlsButton().downloadFile(LAUNCH_EXPORT_DIR_PATH);
+      return getPage().getExportInXlsButton().downloadFile();
     } catch (FileNotFoundException e) {
       throw new FileProcessingException("Error occurred while downloading file");
     }

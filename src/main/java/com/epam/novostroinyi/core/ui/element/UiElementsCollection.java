@@ -46,7 +46,6 @@ public class UiElementsCollection extends AbstractList<WebElement> {
   public void scrollTo(int id) {
     logger.debug("Scrolling to element with id '{}'", id);
     actions().scrollToElement(elementList.get(id)).perform();
-//    new WebActions(getWebDriver()).scrollToElement(elementList.get(id));
   }
 
   @NoArgsConstructor(access = AccessLevel.PRIVATE)

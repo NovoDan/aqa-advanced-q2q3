@@ -6,9 +6,13 @@ import lombok.Getter;
 @Getter
 public class BaseUiSteps<PAGE extends BasePage> extends BaseSteps {
 
-  private final PAGE page;
+  private PAGE page;
 
   public BaseUiSteps(PAGE page) {
+    this.page = page;
+  }
+
+  public void reloadPageElements(PAGE page) {
     this.page = page;
   }
 }
