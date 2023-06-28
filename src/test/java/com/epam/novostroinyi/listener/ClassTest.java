@@ -21,7 +21,7 @@ public class ClassTest {
     booleanVariable = !booleanMethod() && exp;
     booleanVariable = !booleanMethod() || exp;
     booleanVariable = booleanMethod() && exp;
-    String uselessChange = "pr status update test"
+    String uselessChange = "pr status update test +1"
     ////xdgcfhvjbknlm,
 
     String str = null;
