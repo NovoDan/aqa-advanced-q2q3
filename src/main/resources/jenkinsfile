@@ -21,11 +21,6 @@ pipeline {
                 defaultValue: true,
                 name: 'MAKE_SCREENSHOT'
               ),
-              booleanParam(
-                defaultValue: true,
-                description: 'Browser mode',
-                name: 'HEADLESS'
-              ),
               string(
                 defaultValue: 'smoke',
                 name: 'SUITE',
@@ -39,14 +34,15 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Build is started'
-        sh "mvn clean install"
+        sh "mvn clean install -DskipTests"
       }
     }
     stage("Test") {
       steps {
         echo 'Running tests'
         withCredentials([usernamePassword(credentialsId: 'ba5e7d45-f5cf-4762-a079-01d67ae3a82b', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-          sh "mvn test -Dsuite=${params.SUITE} -Dbrowser=${params.BROWSER} -DmakeScreenshot=${params.MAKE_SCREENSHOT} -Dheadless=${params.HEADLESS} -DrpPassword=${params.PASS}"
+          sh "mvn test -Dtest=${params.SUITE} -Dbrowser=${params.BROWSER} -DmakeScreenshot=${params.MAKE_SCREENSHOT}
+          -DrpPassword=${params.PASS} -DrpToken=${params.RP_TOKEN} -Dremote.client.key=${params.REMOTE_CLIENT_KEY} -Dslack.webhook.url=${params.SLACK_WEBHOOK_URL}"
         }
       }
     }

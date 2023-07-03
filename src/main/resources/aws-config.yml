@@ -1,0 +1,147 @@
+Resources:
+  EC2EIP:
+    Type: 'AWS::EC2::EIP'
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref EC2Instance
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: ed6ffbe7-6a86-4f5c-99a1-7cab1fa0c9c2
+  EC2EIPAssociation:
+    Type: 'AWS::EC2::EIPAssociation'
+    Properties:
+      AllocationId: !GetAtt EC2EIP.AllocationId
+      InstanceId: !Ref EC2Instance
+      NetworkInterfaceId: eni-039f95ac9d7c7dc42
+      PrivateIpAddress: !GetAtt EC2Instance.PrivateIp
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 641d5159-ef6a-49ae-a06a-db93f3acbf05
+  EC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: ami-06e46074ae430fba6
+      InstanceType: t2.micro
+      KeyName: cloudx
+      AvailabilityZone: !Sub '${AWS::Region}d'
+      Tenancy: default
+      SubnetId: subnet-01d15b1294099f685
+      EbsOptimized: false
+      SecurityGroupIds:
+        - !Ref EC2SecurityGroup
+      SourceDestCheck: true
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            Encrypted: false
+            VolumeSize: 8
+            SnapshotId: snap-08c1759dcd9fbea93
+            VolumeType: gp3
+            DeleteOnTermination: true
+      Tags:
+        - Key: Name
+          Value: jenkins-instance
+      HibernationOptions:
+        Configured: false
+      EnclaveOptions:
+        Enabled: false
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 55906248-279e-41b3-8ed7-2b604bd67fac
+  EC2SecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security group for Jenkins EC2 Instance
+      GroupName: WebServerSG
+      VpcId: vpc-09196cb5444a139c8
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 80
+          IpProtocol: tcp
+          ToPort: 80
+        - CidrIp: 0.0.0.0/0
+          FromPort: 9000
+          IpProtocol: tcp
+          ToPort: 9000
+        - CidrIp: 0.0.0.0/0
+          FromPort: 8080
+          IpProtocol: tcp
+          ToPort: 8080
+        - CidrIp: 46.98.134.243/32
+          FromPort: 22
+          IpProtocol: tcp
+          ToPort: 22
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: '-1'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 9ebd0c89-1729-4d10-bdcf-3619e89f31e4
+  EC2Volume:
+    Type: 'AWS::EC2::Volume'
+    Properties:
+      AvailabilityZone: !GetAtt EC2Instance.AvailabilityZone
+      Encrypted: false
+      Size: 8
+      VolumeType: gp3
+      SnapshotId: snap-08c1759dcd9fbea93
+      MultiAttachEnabled: false
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 07987098-0f87-494b-9c83-727007d5138d
+  EC2VolumeAttachment:
+    Type: 'AWS::EC2::VolumeAttachment'
+    Properties:
+      VolumeId: !Ref EC2Volume
+      InstanceId: !Ref EC2Instance
+      Device: /dev/xvda
+  EC2VolumeAttachment2:
+    Type: 'AWS::EC2::VolumeAttachment'
+    Properties:
+      VolumeId: !Ref EC2Volume2
+      InstanceId: !Ref EC2Instance2
+      Device: /dev/xvda
+  EC2NetworkInterface:
+    Type: 'AWS::EC2::NetworkInterface'
+    Properties:
+      Description: ''
+      PrivateIpAddress: !GetAtt EC2Instance.PrivateIp
+      PrivateIpAddresses:
+        - PrivateIpAddress: !GetAtt EC2Instance.PrivateIp
+          Primary: true
+      SubnetId: subnet-01d15b1294099f685
+      SourceDestCheck: true
+      GroupSet:
+        - !Ref EC2SecurityGroup
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 6fcbfb4f-8b85-4559-b2c3-0769b3c4e4bf
+  EC2NetworkInterface2:
+    Type: 'AWS::EC2::NetworkInterface'
+    Properties:
+      Description: ''
+      PrivateIpAddress: !GetAtt EC2Instance2.PrivateIp
+      PrivateIpAddresses:
+        - PrivateIpAddress: !GetAtt EC2Instance2.PrivateIp
+          Primary: true
+      SubnetId: subnet-026ab15f2ca09ff5b
+      SourceDestCheck: true
+      GroupSet:
+        - !Ref EC2SecurityGroup
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: c752baec-a628-4d52-a669-c2d93d472f2d
+  EC2NetworkInterfaceAttachment:
+    Type: 'AWS::EC2::NetworkInterfaceAttachment'
+    Properties:
+      NetworkInterfaceId: eni-039f95ac9d7c7dc42
+      DeviceIndex: 0
+      InstanceId: !Ref EC2Instance
+      DeleteOnTermination: true
+  EC2NetworkInterfaceAttachment2:
+    Type: 'AWS::EC2::NetworkInterfaceAttachment'
+    Properties:
+      NetworkInterfaceId: eni-067d7514d1e8d8ed6
+      DeviceIndex: 0
+      InstanceId: !Ref EC2Instance2
+      DeleteOnTermination: true

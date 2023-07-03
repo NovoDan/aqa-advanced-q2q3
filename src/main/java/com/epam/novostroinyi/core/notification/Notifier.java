@@ -1,6 +1,8 @@
 package com.epam.novostroinyi.core.notification;
 
+import java.util.Map;
+
 public interface Notifier {
 
-  void sendMessage(String... args);
+  void sendMessage(Map<String, String> params);
 }

@@ -3,9 +3,9 @@ package com.epam.novostroinyi.ui.jbehave.definition;
 import static com.epam.novostroinyi.core.assertion.Assert.assertHasSize;
 
 import com.epam.novostroinyi.core.ui.element.UiElementsCollection;
-import com.epam.novostroinyi.step.LaunchesSteps;
-import com.epam.novostroinyi.step.LoginPageSteps;
-import com.epam.novostroinyi.step.TestItemsSteps;
+import com.epam.novostroinyi.ui.step.LaunchesSteps;
+import com.epam.novostroinyi.ui.step.LoginPageSteps;
+import com.epam.novostroinyi.ui.step.TestItemsSteps;
 import lombok.SneakyThrows;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;

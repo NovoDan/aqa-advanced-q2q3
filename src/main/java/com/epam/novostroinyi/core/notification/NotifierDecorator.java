@@ -1,5 +1,6 @@
 package com.epam.novostroinyi.core.notification;
 
+import java.util.Map;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -12,7 +13,7 @@ public class NotifierDecorator implements Notifier {
   }
 
   @Override
-  public void sendMessage(String ... messageParams) {
-    wrapper.sendMessage(messageParams);
+  public void sendMessage(Map<String, String> params) {
+    wrapper.sendMessage(params);
   }
 }
