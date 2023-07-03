@@ -8,7 +8,7 @@ import com.codeborne.selenide.Configuration;
 import com.epam.novostroinyi.core.config.Property;
 import com.epam.novostroinyi.core.constant.Browser;
 import com.epam.novostroinyi.core.util.WebDriverUtils;
-import com.epam.novostroinyi.ui.BaseUiSteps;
+import com.epam.novostroinyi.ui.IBaseUiTest;
 import com.epam.novostroinyi.ui.step.LoginPageSteps;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 
 @RunWith(TestRunner.class)
-public class BaseJUnitTest implements BaseUiSteps {
+public class BaseJUnitTest implements IBaseUiTest {
 
   @BeforeAll
   @SneakyThrows

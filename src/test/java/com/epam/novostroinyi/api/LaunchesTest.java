@@ -14,6 +14,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.epam.novostroinyi.api.step.LaunchesApiSteps;
+import com.epam.novostroinyi.core.annotation.CaseId;
 import com.epam.novostroinyi.core.client.api.ApiResponse;
 import com.epam.novostroinyi.core.constant.StatusCode;
 import com.epam.novostroinyi.core.model.launch.LaunchDto;
@@ -48,6 +49,7 @@ public class LaunchesTest {
   }
 
   @Test
+  @CaseId(caseId = "1")
   public void getLaunchByUuid() {
     String launchListResponse = new LaunchesApiSteps().getLaunchesList()
         .verifyStatusCode(StatusCode.OK)
@@ -67,6 +69,7 @@ public class LaunchesTest {
   }
 
   @Test
+  @CaseId(caseId = "2")
   public void exportLaunchTest() {
     LaunchesApiSteps steps = new LaunchesApiSteps();
     String launchListResponse = steps.getLaunchesList()
@@ -116,6 +119,7 @@ public class LaunchesTest {
     }
 
     @Test
+    @CaseId(caseId = "4")
     public void createLaunchTest() {
       String response = steps.getLaunchesList()
           .verifyStatusCode(StatusCode.OK)
@@ -140,6 +144,7 @@ public class LaunchesTest {
     }
 
     @Test
+    @CaseId(caseId = "5")
     public void updateLaunchTest() {
       String launchJsonTemplate = getFileAsStringByPath(
           "src/test/resources/data/api/launch_template.json");
@@ -192,6 +197,7 @@ public class LaunchesTest {
     }
 
     @Test
+    @CaseId(caseId = "3")
     public void deleteLaunch() {
       int launchNumber = Integer.parseInt(
           readJsonSingleValue(createLaunchResponse.getResponseBody(), "$.number"));

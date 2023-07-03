@@ -2,19 +2,19 @@ package com.epam.novostroinyi.core.client.api;
 
 import static io.restassured.RestAssured.given;
 
-import com.epam.novostroinyi.core.config.Property;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import java.util.Map;
 
 public class RestClient implements ApiClient {
 
-  private final RequestSpecification requestSpecification = new RequestSpecBuilder()
-      .addHeaders(Map.of(
-          "Authorization", "Bearer " + Property.SECRET_PROPERTY.reportPortalToken(),
-          "Content-Type", "application/json",
-          "Accept", "application/json"))
-      .build();
+  private final RequestSpecification requestSpecification;
+
+  public RestClient(Map<String, String> headers) {
+    requestSpecification = new RequestSpecBuilder()
+        .addHeaders(headers)
+        .build();
+  }
 
   @Override
   public ApiResponse doGet(String url) {

@@ -33,6 +33,10 @@
         <gson.version>2.10.1</gson.version>
         <jsonpath.version>2.4.0</jsonpath.version>
         <aspectj.version>1.9.9</aspectj.version>
+        <sauce-labs.version>2.1.25</sauce-labs.version>
+        <report.portal.version>5.1.5</report.portal.version>
+        <report.portal.testng.version>5.2.0</report.portal.testng.version>
+        <testrail.version>2.0.2</testrail.version>
     </properties>
 
     <dependencies>
@@ -131,6 +135,45 @@
             <scope>runtime</scope>
             <version>${aspectj.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.epam.reportportal/agent-java-testng -->
+        <dependency>
+            <groupId>com.epam.reportportal</groupId>
+            <artifactId>agent-java-testng</artifactId>
+            <version>${report.portal.testng.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.epam.reportportal/logger-java-log4j -->
+        <dependency>
+            <groupId>com.epam.reportportal</groupId>
+            <artifactId>logger-java-log4j</artifactId>
+            <version>${report.portal.version}</version>
+        </dependency>
+
+        <!-- Sauce Labs -->
+        <dependency>
+            <groupId>com.saucelabs</groupId>
+            <artifactId>sauce_java_common</artifactId>
+            <version>${sauce-labs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.saucelabs</groupId>
+            <artifactId>sauce_testng</artifactId>
+            <version>${sauce-labs.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.epam.reportportal</groupId>
+            <artifactId>client-java</artifactId>
+            <version>${report.portal.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.codepine.api</groupId>
+            <artifactId>testrail-api-java-client</artifactId>
+            <version>${testrail.version}</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

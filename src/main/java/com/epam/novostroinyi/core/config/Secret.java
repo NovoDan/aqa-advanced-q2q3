@@ -14,4 +14,13 @@ public interface Secret extends Config {
 
   @Key("rpToken")
   String reportPortalToken();
+
+  @Key("remote.client.key")
+  String remoteClientKey();
+
+  @Key("slack.webhook.url")
+  String slackWebhookUrl();
+
+  @Key("testrail.api.password")
+  String testRailApiPassword();
 }

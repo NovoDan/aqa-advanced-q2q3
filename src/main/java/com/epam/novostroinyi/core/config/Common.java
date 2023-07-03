@@ -15,10 +15,6 @@ public interface Common extends Config {
   @Key("browser")
   String browserType();
 
-  @Key("headless")
-  @DefaultValue("false")
-  boolean headlessMode();
-
   @Key("rp.username")
   String reportPortalUser();
 
@@ -36,4 +32,13 @@ public interface Common extends Config {
 
   @Key("remote")
   Boolean isRemote();
+
+  @Key("remote.client.username")
+  String remoteClientUsername();
+
+  @Key("testrail.api.url")
+  String testRailApiUrl();
+
+  @Key("testrail.api.login")
+  String testRailApiLogin();
 }

@@ -2,7 +2,7 @@ package com.epam.novostroinyi.ui;
 
 import static com.epam.novostroinyi.core.util.WebDriverUtils.setBrowser;
 
-public interface BaseUiSteps {
+public interface IBaseUiTest {
 
   static void setUp() {
     setBrowser();

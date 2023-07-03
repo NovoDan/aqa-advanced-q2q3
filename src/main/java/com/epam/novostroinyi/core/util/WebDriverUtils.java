@@ -11,6 +11,8 @@ import com.codeborne.selenide.WebDriverRunner;
 import com.epam.novostroinyi.core.config.Property;
 import com.epam.novostroinyi.core.constant.Browser;
 import com.epam.novostroinyi.core.exception.FileProcessingException;
+import com.epam.novostroinyi.core.remote.RemoteClient;
+import com.epam.novostroinyi.core.remote.SauceClient;
 import com.epam.novostroinyi.core.waiter.ConditionalWaiter;
 import com.epam.novostroinyi.core.waiter.SelenideWaiter;
 import com.google.common.io.Files;
@@ -25,6 +27,7 @@ import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WebDriverUtils {
@@ -34,6 +37,9 @@ public class WebDriverUtils {
 
   @Getter
   private static final ConditionalWaiter waiter = new SelenideWaiter();
+
+  @Getter
+  private static RemoteClient remoteClient;
 
   public static void openUrl(String url) {
     open(url);
@@ -87,12 +93,20 @@ public class WebDriverUtils {
     DesiredCapabilities capabilities = new DesiredCapabilities();
     capabilities.setBrowserName(browser.getBrowserName());
     capabilities.setPlatform(Platform.WIN10);
-    Configuration.remote = Property.COMMON_PROPERTY.remoteBrowserUrl();
+
+    String remoteClientUser = Property.COMMON_PROPERTY.remoteClientUsername();
+    String remoteClientPassword = Property.SECRET_PROPERTY.remoteClientKey();
+    remoteClient = new SauceClient(remoteClientUser, remoteClientPassword);
+    Configuration.remote = Property.COMMON_PROPERTY.remoteBrowserUrl().formatted(remoteClientUser, remoteClientPassword);
   }
 
   private static void configureSelenideBrowser() {
     Configuration.proxyEnabled = false;
     Configuration.fileDownload = FOLDER;
     Configuration.downloadsFolder = LAUNCH_EXPORT_DIR_PATH;
+  }
+
+  public static String getSessionId() {
+    return ((RemoteWebDriver) WebDriverRunner.getWebDriver()).getSessionId().toString();
   }
 }
