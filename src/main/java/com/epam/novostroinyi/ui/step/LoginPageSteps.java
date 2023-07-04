@@ -1,9 +1,9 @@
-package com.epam.novostroinyi.step;
+package com.epam.novostroinyi.ui.step;
 
 import static com.epam.novostroinyi.core.config.Property.COMMON_PROPERTY;
 import static com.epam.novostroinyi.core.config.Property.SECRET_PROPERTY;
 
-import com.epam.novostroinyi.page.LoginPage;
+import com.epam.novostroinyi.ui.page.LoginPage;
 
 public class LoginPageSteps extends BaseUiSteps<LoginPage> {
 

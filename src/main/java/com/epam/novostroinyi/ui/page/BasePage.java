@@ -1,4 +1,4 @@
-package com.epam.novostroinyi.page;
+package com.epam.novostroinyi.ui.page;
 
 import com.epam.novostroinyi.core.util.WebDriverUtils;
 import com.epam.novostroinyi.core.waiter.DriverWaiter;

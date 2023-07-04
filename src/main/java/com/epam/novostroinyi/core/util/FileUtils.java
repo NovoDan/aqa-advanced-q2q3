@@ -1,25 +1,35 @@
 package com.epam.novostroinyi.core.util;
 
-import com.epam.novostroinyi.core.exception.TestErrorException;
+import com.epam.novostroinyi.core.config.ConfigUtils;
+import com.epam.novostroinyi.core.exception.FileProcessingException;
+import com.epam.novostroinyi.core.logger.ILogger;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.testng.reporters.Files;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FileUtils {
+
+  private static final ILogger logger = ConfigUtils.getLogger();
 
   public static List<String[]> readCsvFile(String filePath, int linesToSkip) {
     try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
       reader.skip(linesToSkip);
       return reader.readAll();
     } catch (IOException | CsvException e) {
-      throw new TestErrorException(e.getMessage());
+      logger.error("Error occurred while reading CSV file {}", filePath);
+      throw new FileProcessingException(e.getMessage());
     }
   }
 
@@ -35,5 +45,34 @@ public class FileUtils {
       }
       return mappedRow;
     }).toList();
+  }
+
+  public static String getContentFromFile(File file) {
+    try (InputStream stream = new FileInputStream(file)) {
+      return Files.readFile(stream);
+    } catch (IOException e) {
+      logger.error("Error occurred while reading file {}", file.getName());
+      throw new FileProcessingException(e.getMessage());
+    }
+  }
+
+  public static String getFileAsStringByPath(String filePath) {
+    File file = new File(filePath);
+    return getContentFromFile(file);
+  }
+
+  public static void saveByteArrayToFile(byte[] fileContent, String path, String fileName) {
+    File fileDir = new File(path);
+    File file = new File(path, fileName);
+    if (fileDir.exists() || fileDir.mkdir()) {
+      try (FileOutputStream outputStream = new FileOutputStream(file)) {
+        outputStream.write(fileContent);
+      } catch (IOException e) {
+        logger.error("Error occurred while writing file to destination {}", file.getName());
+        throw new FileProcessingException(e.getMessage());
+      }
+    } else {
+      throw new FileProcessingException("Could not create directory " + path);
+    }
   }
 }

@@ -5,7 +5,7 @@ import static com.epam.novostroinyi.core.util.FileUtils.readCsvFile;
 import static org.testng.AssertJUnit.assertEquals;
 
 import com.epam.novostroinyi.core.constant.TestStatus;
-import com.epam.novostroinyi.step.LaunchesSteps;
+import com.epam.novostroinyi.ui.step.LaunchesSteps;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.EnumUtils;

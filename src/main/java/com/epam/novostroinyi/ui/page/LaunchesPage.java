@@ -1,4 +1,4 @@
-package com.epam.novostroinyi.page;
+package com.epam.novostroinyi.ui.page;
 
 import com.epam.novostroinyi.core.ui.element.UiElementsCollection;
 import com.epam.novostroinyi.core.ui.element.UiElementsCollection.GetElementsBy;

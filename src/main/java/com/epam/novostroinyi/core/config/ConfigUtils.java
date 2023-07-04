@@ -2,31 +2,27 @@ package com.epam.novostroinyi.core.config;
 
 import com.codeborne.selenide.Browsers;
 import com.codeborne.selenide.Configuration;
+import com.epam.novostroinyi.core.client.api.ApiClient;
+import com.epam.novostroinyi.core.client.api.RestClient;
 import com.epam.novostroinyi.core.logger.Log4jLogger;
 import com.epam.novostroinyi.core.logger.ILogger;
 import com.epam.novostroinyi.core.reporter.AllureReporter;
 import com.epam.novostroinyi.core.reporter.Reporter;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfigUtils {
 
-  private static ILogger logger;
-  private static Reporter reporter;
+  @Getter
+  private static Reporter reporter  = AllureReporter.getInstance();
 
-  static  {
-    reporter = AllureReporter.getInstance();
-    logger = new Log4jLogger(reporter);
-  }
+  @Getter
+  private static ILogger logger = new Log4jLogger(reporter);
 
-  public static ILogger getLogger() {
-    return  logger;
-  }
-
-  public static Reporter getReporter() {
-    return reporter;
-  }
+  @Getter
+  private static ApiClient client = new RestClient();
 
   public static void setBrowser() {
     switch (Property.COMMON_PROPERTY.browserType()) {

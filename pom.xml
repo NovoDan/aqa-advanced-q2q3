@@ -30,6 +30,9 @@
         <jbehave.version>5.1</jbehave.version>
         <sonar.organization>myorganizationdn</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <restassured.version>5.3.0</restassured.version>
+        <gson.properties>2.10.1</gson.properties>
+        <jpath.version>2.4.0</jpath.version>
     </properties>
 
     <dependencies>
@@ -67,6 +70,11 @@
             <version>${jbehave.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restassured.version}</version>
+        </dependency>
 
         <dependency>
             <artifactId>lombok</artifactId>
@@ -98,6 +106,19 @@
             <groupId>io.qameta.allure</groupId>
             <version>${allure.version}</version>
         </dependency>
+
+        <!-- JSON -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.properties}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${jpath.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

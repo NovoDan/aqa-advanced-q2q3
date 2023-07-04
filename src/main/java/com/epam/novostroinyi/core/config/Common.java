@@ -27,4 +27,7 @@ public interface Common extends Config {
 
   @Key("makeScreenshot")
   boolean makeScreenshot();
+
+  @Key("rp.project.name")
+  String rpProjectName();
 }

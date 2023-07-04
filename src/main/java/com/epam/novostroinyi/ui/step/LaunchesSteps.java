@@ -1,4 +1,4 @@
-package com.epam.novostroinyi.step;
+package com.epam.novostroinyi.ui.step;
 
 import static com.codeborne.selenide.Selenide.actions;
 import static com.epam.novostroinyi.core.constant.TestStatus.FAILED;
@@ -11,7 +11,7 @@ import static com.epam.novostroinyi.core.constant.TestStatus.TOTAL;
 import static com.epam.novostroinyi.core.constant.TestStatus.TO_INVESTIGATE;
 
 import com.epam.novostroinyi.core.ui.element.UiElementsCollection;
-import com.epam.novostroinyi.page.LaunchesPage;
+import com.epam.novostroinyi.ui.page.LaunchesPage;
 import java.util.Map;
 import org.openqa.selenium.WebElement;
 
